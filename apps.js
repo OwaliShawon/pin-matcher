@@ -1,9 +1,9 @@
+// generate pin
 const generateBtn = document.getElementById('generate-pin-button');
 generateBtn.addEventListener("click", function () {
     document.getElementById('generate-pin').value = getPin();
 
 });
-
 function getPin() {
 
     const number = Math.random() * 10000;
@@ -16,13 +16,15 @@ function getPin() {
     }
 }
 
-// handle calculator button event
+// handle button event
 const buttonContainer = document.getElementById('digits-container');
 buttonContainer.addEventListener('click', function () {
     const digit = event.target.innerText;
     if (isNaN(digit)) {
-
-
+        if (digit == 'C') {
+            const typedInput = document.getElementById('typed-pin');
+            typedInput.value = '';
+        }
     }
     else {
         const typedInput = document.getElementById('typed-pin');
@@ -30,19 +32,25 @@ buttonContainer.addEventListener('click', function () {
     }
 })
 
+// back button handle
+function backSpace() {
+    var currentInput = document.getElementById('typed-pin').value;
+    document.getElementById('typed-pin').value = currentInput.substr(0, currentInput.length - 1);
+}
+
 // pin verification 
-document.getElementById('submit-btn').addEventListener('click', function(){
+document.getElementById('submit-btn').addEventListener('click', function () {
     verifyPin();
 });
 
-function verifyPin(){
-    const pin =  document.getElementById('generate-pin').value;
+function verifyPin() {
+    const pin = document.getElementById('generate-pin').value;
     const typedInput = document.getElementById('typed-pin').value;
 
-    if(pin === typedInput){
-       document.getElementById('match').style.display='block';
+    if (pin === typedInput) {
+        document.getElementById('match').style.display = 'block';
     }
-    else{
-        console.log('noooot matched');
+    else {
+        document.getElementById('not-match').style.display = 'block';
     }
 }
